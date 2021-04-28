@@ -4,6 +4,7 @@ import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
 
 const App = () => {
+  const [showAddTask, setShowAddTask] = useState(false)
   // by placing the object within Tasks rather than outside of the component, it becomes part of the component state which can then be changed using setTasks
   // state is immutable and needs to be re-created and sent back 
   const [tasks, setTasks] = useState(
@@ -56,8 +57,11 @@ const App = () => {
 
   return (
     <div className="container">
-      <Header />
-      <AddTask onAdd={addTask} />
+      <Header 
+      onAdd={() => setShowAddTask(!showAddTask)}
+      showAdd={showAddTask}
+      />
+      {showAddTask && <AddTask onAdd={addTask} />}
       {tasks.length > 0 ? (
         <Tasks tasks={tasks} onDelete=
           {deleteTask} onToggle={toggleReminder} />
